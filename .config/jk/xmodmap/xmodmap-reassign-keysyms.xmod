@@ -1,0 +1,8 @@
+clear Lock
+clear Shift
+clear Control
+clear Mod4
+add Shift = Shift_L Shift_R
+! add Lock = Shift_L
+add Control = Control_L Control_R
+add Mod4 = Super_L Super_R Hyper_L
