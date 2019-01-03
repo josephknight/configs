@@ -14,11 +14,11 @@ keycode  62 = Shift_R Caps_Lock Shift_R Caps_Lock
 ! capslock
 keycode  66 = Escape NoSymbol Escape
 ! alt keys
-keycode  64 = Super_L NoSymbol Super_L
-keycode 108 = Super_R NoSymbol Super_R
+keycode  64 = Super_L Super_L Super_L
+keycode 108 = Super_R Super_R Super_R
 ! super keys
-keycode 133 = Control_L NoSymbol Control_L
-keycode 134 = Control_R NoSymbol Control_R
+keycode 133 = Control_L Control_L Control_L
+keycode 134 = Control_R Control_R Control_R
 ! misc uncommon keys included because of their reference to modifier functions.
 keycode 204 = NoSymbol Alt_L NoSymbol Alt_L
 keycode 205 = NoSymbol Meta_L NoSymbol Meta_L
@@ -32,3 +32,4 @@ add Control = Control_L Control_R
 add Mod1 = Alt_L Alt_R
 add Mod4 = Super_L Super_R Hyper_L
 
+pointer = 1 2 3 5 4 7 6 8 9 10 11 12
