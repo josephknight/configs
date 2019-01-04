@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#volume
+pactl set-sink-volume @DEFAULT_SINK@ 70%
+
+#monitor brightness
+br_out=$(xrandr --listactivemonitors | grep -oP "(?<=  )(.*)(?=)")
+xrandr --output $br_out --brightness 1
+
+#todo: keyboard brightness
+#...
+systemctl suspend
+
+# to make vim work for root as it does for user.
+ln -s /home/paragon/.vim /root/.vim
+ln -s /home/paragon/.vimrc /root/.vimrc
