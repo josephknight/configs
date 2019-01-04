@@ -13,11 +13,8 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 8
-# font ~/Documents/console-fonts/eurlatgr.psfu.gz
-# font ~/Documents/console-fonts/8x8thin
-# font pango:Misc 8
-font pango:Classic Console 16
+# font pango:monospace 8
+font pango:Classic Console 15
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -173,8 +170,30 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
+#jk: bar colors. see: https://i3wm.org/docs/userguide.html#_colors
 bar {
-        status_command i3status
+    status_command i3status
+    position top
+    tray_output primary
+    tray_padding 0
+    separator_symbol " | "
+    strip_workspace_numbers yes
+    
+    colors {
+		background #1D0C2D
+		statusline #7768A7
+		separator  #920c3e
+        # focused_background  #ff00ff
+        # focused_statusline  #00ff00
+        # focused_separator   #0000ff
+
+#                           border bg       text
+		focused_workspace  #000000 #23a077 #222222
+		active_workspace   #333333 #920c3e #222222
+		inactive_workspace #333333 #1d0c2d #888888
+		urgent_workspace   #2f343a #900000 #ffffff
+		binding_mode       #2f343a #900000 #ffffff
+    }
 }
 
 bindsym $mod+shift+x exec i3lock

@@ -14,3 +14,6 @@ systemctl suspend
 # to make vim work for root as it does for user.
 ln -s /home/paragon/.vim /root/.vim
 ln -s /home/paragon/.vimrc /root/.vimrc
+
+# don't forget to refresh font cache for the terminal font.
+fc-cache
