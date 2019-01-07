@@ -4,8 +4,12 @@
 pactl set-sink-volume @DEFAULT_SINK@ 70%
 
 #monitor brightness
-br_out=$(xrandr --listactivemonitors | grep -oP "(?<=  )(.*)(?=)")
-xrandr --output $br_out --brightness 1
+# br_out=$(xrandr --listactivemonitors | grep -oP "(?<=  )(.*)(?=)")
+# xrandr --output $br_out --brightness 1
+# this is better because it affects hardware directly instead
+# of being a software hack like xrandr. xrandr is also limited
+# in max brightness and washes out. edit the system file directly.
+echo $1 | sudo tee /sys/class/backlight/intel_backlight/brightness
 
 #todo: keyboard brightness
 #...
