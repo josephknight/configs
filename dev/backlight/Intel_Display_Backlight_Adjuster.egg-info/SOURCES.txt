@@ -1,0 +1,8 @@
+backlight.py
+setup.py
+Intel_Display_Backlight_Adjuster.egg-info/PKG-INFO
+Intel_Display_Backlight_Adjuster.egg-info/SOURCES.txt
+Intel_Display_Backlight_Adjuster.egg-info/dependency_links.txt
+Intel_Display_Backlight_Adjuster.egg-info/entry_points.txt
+Intel_Display_Backlight_Adjuster.egg-info/requires.txt
+Intel_Display_Backlight_Adjuster.egg-info/top_level.txt

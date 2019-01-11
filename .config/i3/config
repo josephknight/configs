@@ -1,49 +1,94 @@
 # Knight Paragon i3 config file
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod4
-font pango:Classic Console 15
-floating_modifier $mod
-bindsym $mod+w kill
+# TODO: change contrast of focused non-focused window borders to be obvious.
+# TODO: try replacing $uper var name with $uper for clarity
+
+set $uper           Mod4
+set $alt            Mod1
+font pango:         Classic Console 15
+floating_modifier   $uper
+
+# Bindings ===============================================
+# ========================================================
+# Super (mod)           = general commands (fullscreen, close, focus, move, etc.)
+# Super + Ctrl          = Launch
+# Super + $alt          = i3 or system function
+# Super + Ctrl + $alt   = [ yet undefined, reserved for future category ]
+# + Shift to any        = Inverse or Extra
+#
+# General Functions ======================================
+bindsym $uper+space      exec dmenu_run
+bindsym $uper+Return     fullscreen toggle
+bindsym $uper+f          fullscreen toggle
+bindsym $uper+Shift+f    floating toggle
+bindsym $uper+r          mode "resize"
+bindsym $uper+w          kill
+
+# i3 System Functions ($alt key for safety) ===============
+# emergency backlight reset (if fully dark and blind)
+bindsym $uper+$alt+b      exec /home/paragon/bin/backlight-reset
+bindsym $uper+$alt+c      reload
+bindsym $uper+$alt+e      exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $uper+$alt+r      restart
+bindsym $uper+$alt+x      exec i3lock
+
+# User App Bindings =======================================
+bindsym $uper+control+c  exec google-chrome
+bindsym $uper+control+f  exec firefox
+bindsym $uper+control+t  exec gnome-terminal
+
+# Mac Function Keys =======================================
+# Brightness
+bindsym XF86MonBrightnessDown exec backlight decrease .1
+bindsym XF86MonBrightnessUp exec backlight increase .1
+# LaunchA
+# LaunchB
+# Keyboard Brightness
+bindsym XF86KbdBrightnessDown exec keyboard-backlight decrease .1
+bindsym XF86KbdBrightnessUp exec keyboard-backlight increase .1
+# Play Controls
+# Volume
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10%
+
+
+# Customized App Environments ========================
+for_window [class="^google-chrome$"] border none
+for_window [class="terminal"] border pixel 2
+
+# Auto Execute Scripts ===============================
+exec google-chrome
 
 # General Settings
 focus_follows_mouse no
 # mouse_warping output|none (default output)
 
-# start dmenu (a program launcher)
-bindsym $mod+space exec dmenu_run
-
 # change focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+bindsym $uper+h focus left
+bindsym $uper+j focus down
+bindsym $uper+k focus up
+bindsym $uper+l focus right
 
 # move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
+bindsym $uper+Shift+h move left
+bindsym $uper+Shift+j move down
+bindsym $uper+Shift+k move up
+bindsym $uper+Shift+l move right
 
 # Window Modes
-bindsym $mod+Left layout tabbed
-bindsym $mod+Down split v
-bindsym $mod+Up layout stacking
-bindsym $mod+Right split h
+bindsym $uper+Left layout tabbed
+bindsym $uper+Down split v
+bindsym $uper+Up layout stacking
+bindsym $uper+Right split h
 
-bindsym $mod+v layout toggle split
-
-# fullscreen and floating
-bindsym $mod+f fullscreen toggle
-bindsym $mod+Return fullscreen toggle
-
-bindsym $mod+Shift+f floating toggle
+bindsym $uper+v layout toggle split
 
 # Mode Focusing
-bindsym $mod+Shift+Left floating toggle
-bindsym $mod+Shift+Down focus child
-bindsym $mod+Shift+Up focus parent
-bindsym $mod+Shift+Right focus mode_toggle
+bindsym $uper+Shift+Left floating toggle
+bindsym $uper+Shift+Down focus child
+bindsym $uper+Shift+Up focus parent
+bindsym $uper+Shift+Right focus mode_toggle
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -59,33 +104,28 @@ set $ws9 "9"
 set $ws10 "10"
 
 # switch to workspace
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
+bindsym $uper+1 workspace $ws1
+bindsym $uper+2 workspace $ws2
+bindsym $uper+3 workspace $ws3
+bindsym $uper+4 workspace $ws4
+bindsym $uper+5 workspace $ws5
+bindsym $uper+6 workspace $ws6
+bindsym $uper+7 workspace $ws7
+bindsym $uper+8 workspace $ws8
+bindsym $uper+9 workspace $ws9
+bindsym $uper+0 workspace $ws10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
-
-# Extended Modifier Bindings
-bindsym $mod+Shift+Control+c reload
-bindsym $mod+Shift+Control+r restart
-bindsym $mod+Shift+Control+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $uper+Shift+1 move container to workspace $ws1
+bindsym $uper+Shift+2 move container to workspace $ws2
+bindsym $uper+Shift+3 move container to workspace $ws3
+bindsym $uper+Shift+4 move container to workspace $ws4
+bindsym $uper+Shift+5 move container to workspace $ws5
+bindsym $uper+Shift+6 move container to workspace $ws6
+bindsym $uper+Shift+7 move container to workspace $ws7
+bindsym $uper+Shift+8 move container to workspace $ws8
+bindsym $uper+Shift+9 move container to workspace $ws9
+bindsym $uper+Shift+0 move container to workspace $ws10
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -94,13 +134,16 @@ mode "resize" {
         bindsym k resize shrink height 10 px or 10 ppt
         bindsym l resize grow width 10 px or 10 ppt
 
-        # back to normal: Enter or Escape or $mod+r
+        bindsym $uper+h resize shrink width 10 px or 10 ppt
+        bindsym $uper+j resize grow height 10 px or 10 ppt
+        bindsym $uper+k resize shrink height 10 px or 10 ppt
+        bindsym $uper+l resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $uper+r
         bindsym Return mode "default"
         bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
+        bindsym $uper+r mode "default"
 }
-
-bindsym $mod+r mode "resize"
 
 # Client Colors ==================================================
 # https://i3wm.org/docs/userguide.html#_changing_colors
@@ -139,33 +182,3 @@ bar {
         binding_mode       #2f343a #900000 #ffffff
     }
 }
-
-# App Bindings =======================================
-# bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+t exec gnome-terminal
-bindsym $mod+shift+x exec i3lock
-bindsym $mod+c exec chromium
-
-# Mac Function Keys ------
-# Brightness
-bindsym XF86MonBrightnessDown exec backlight decrease .1
-bindsym XF86MonBrightnessUp exec backlight increase .1
-# LaunchA
-# LaunchB
-# Keyboard Brightness
-bindsym XF86KbdBrightnessDown exec keyboard-backlight decrease .1
-bindsym XF86KbdBrightnessUp exec keyboard-backlight increase .1
-# Play Controls
-# Volume
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10%
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10%
-
-
-# Customized App Environments ========================
-for_window [class="Chromium"] border none
-for_window [class="terminal"] border pixel 2
-
-# Auto Execute Scripts ===============================
-exec chromium
-
-# TODO: change contrast of focused non-focused window borders to be obvious.

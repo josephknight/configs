@@ -37,7 +37,7 @@ Plug 'mhinz/vim-startify'  "Fancy Startup Screen
 " " Using someone's forked fix here due to errors with official python-mode.
 " Check often for PR acceptance or issue-resolving updates to official.
 " Plug 'riher/python-mode', { 'branch': 'fix/py3-importlib' }
-Plug 'python-mode/python-mode', { 'branch': 'develop' }
+" Plug 'python-mode/python-mode' ", { 'branch': 'develop' }
 Plug 'gko/vim-coloresque'  " Colorize background of color strings in code.
 " Plug 'hdima/python-syntax'  " trying to get variables and other elements to colorize!
 call plug#end()

@@ -21,3 +21,9 @@ ln -s /home/paragon/.vimrc /root/.vimrc
 
 # don't forget to refresh font cache for the terminal font.
 fc-cache
+
+#change backlight permissions to be writeable by i3
+sudo chown root:users /sys/class/backlight/intel_backlight/brightness
+chmod 664 /sys/class/backlight/intel_backlight/brightness
+# install the click lib python project as executable for i3 to use.
+sudo pip install dev/backlight/
