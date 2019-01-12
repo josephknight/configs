@@ -74,6 +74,9 @@ noremap <Leader>r :set relativenumber!<cr>
 " Display info on element under cursor (useful for syntax schemeing).
 noremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
+" Custom command for easier remembering of the sudo write trick
+:command WriteSudo w !sudo tee %
+
 " general
 " Better copy & paste
 " When you want to paste large blocks of code into vim, press F2 before you
