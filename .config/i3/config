@@ -1,33 +1,46 @@
 # Knight Paragon i3 config file
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-# TODO: change contrast of focused non-focused window borders to be obvious.
-# TODO: try replacing $uper var name with $uper for clarity
 
 set $uper           Mod4
 set $alt            Mod1
 font pango:         Classic Console 15
 floating_modifier   $uper
+default_border pixel 4
 
 # Bindings ===============================================
 # ========================================================
+# Conceptual meanings of modifier combinations:
 # Super (mod)           = general commands (fullscreen, close, focus, move, etc.)
 # Super + Ctrl          = Launch
 # Super + $alt          = i3 or system function
 # Super + Ctrl + $alt   = [ yet undefined, reserved for future category ]
-# + Shift to any        = Inverse or Extra
+# + Shift to any        = Inverse or Extra or Move
 #
-# General Functions ======================================
+# i3 System Functions ======================================
 bindsym $uper+space      exec dmenu_run
-bindsym $uper+Return     fullscreen toggle
+bindsym $uper+q          kill
+
+# Window Manipulation ==================================
 bindsym $uper+f          fullscreen toggle
 bindsym $uper+Shift+f    floating toggle
+bindsym $uper+m          focus mode_toggle
 bindsym $uper+r          mode "resize"
-bindsym $uper+w          kill
+
+# Modes
+bindsym $uper+Shift+v    split v
+bindsym $uper+v          split h
+bindsym $uper+$alt+v     split toggle
+bindsym $uper+t          layout tabbed
+bindsym $uper+s          layout stacking
+
+bindsym $uper+p          focus parent
+bindsym $uper+c          focus child
+
+bindsym $uper+$alt+b border toggle 4
 
 # i3 System Functions ($alt key for safety) ===============
 # emergency backlight reset (if fully dark and blind)
-bindsym $uper+$alt+b      exec /home/paragon/bin/backlight-reset
 bindsym $uper+$alt+c      reload
 bindsym $uper+$alt+e      exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 bindsym $uper+$alt+r      restart
@@ -54,8 +67,8 @@ bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10%
 
 
 # Customized App Environments ========================
-for_window [class="^google-chrome$"] border none
-for_window [class="terminal"] border pixel 2
+for_window [class="^google-chrome$"] border pixel 4
+for_window [class="^terminal$"] border pixel 4
 
 # Auto Execute Scripts ===============================
 exec google-chrome
@@ -65,35 +78,20 @@ focus_follows_mouse no
 # mouse_warping output|none (default output)
 
 # change focus
-bindsym $uper+h focus left
-bindsym $uper+j focus down
 bindsym $uper+k focus up
+bindsym $uper+j focus down
+bindsym $uper+h focus left
 bindsym $uper+l focus right
 
 # move focused window
-bindsym $uper+Shift+h move left
-bindsym $uper+Shift+j move down
 bindsym $uper+Shift+k move up
+bindsym $uper+Shift+j move down
+bindsym $uper+Shift+h move left
 bindsym $uper+Shift+l move right
 
-# Window Modes
-bindsym $uper+Left layout tabbed
-bindsym $uper+Down split v
-bindsym $uper+Up layout stacking
-bindsym $uper+Right split h
-
-bindsym $uper+v layout toggle split
-
-# Mode Focusing
-bindsym $uper+Shift+Left floating toggle
-bindsym $uper+Shift+Down focus child
-bindsym $uper+Shift+Up focus parent
-bindsym $uper+Shift+Right focus mode_toggle
-
-# Define names for default workspaces for which we configure key bindings later on.
-# We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
+# Workspaces ==========================================
+set $ws1 "1:Web"
+set $ws2 "2:Work"
 set $ws3 "3"
 set $ws4 "4"
 set $ws5 "5"
@@ -101,7 +99,7 @@ set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
-set $ws10 "10"
+set $ws10 "10:Journal"
 
 # switch to workspace
 bindsym $uper+1 workspace $ws1
@@ -145,16 +143,23 @@ mode "resize" {
         bindsym $uper+r mode "default"
 }
 
+# Just some color ideas from adobe color:
+# suede:        2B2B29
+# mustard:      9CAD2A
+# zartan:       7BC9C9
+# faded plum:   4B3454
+# muted skink:  6E1B45
+
 # Client Colors ==================================================
 # https://i3wm.org/docs/userguide.html#_changing_colors
-# class                 border  backgr. text    indicator child_border
-client.focused          #4c7899 #285577 #ffffff #ffffff   #285577
-client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
-client.unfocused        #333333 #222222 #888888 #292d2e   #222222
-client.urgent           #2f343a #900000 #ffffff #900000   #900000
-client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+# class        tit.brd tit.bg  tit.txt indictr child_border
+client.focused $zartan $zartan $mustard $skink
+client.focused_inactive $dkgray $dkgray $plum $skink
+client.unfocused $dkgray $dkgray $mustard $skink
+client.urgent $skink $skink #FFFFFF #FFFFFF
+client.placeholder $dkgray $dkgray $plum $skink
 
-client.background       #ffffff
+client.background #585954
 
 # i3 Bar Colors ==================================================
 # https://i3wm.org/docs/userguide.html#_colors
@@ -166,19 +171,22 @@ bar {
     separator_symbol " | "
     strip_workspace_numbers yes
     
-    colors {
-        background #1D0C2D
-        statusline #7768A7
-        separator  #920c3e
-        # focused_background  #ff00ff
-        # focused_statusline  #00ff00
-        # focused_separator   #0000ff
+	colors {
+		background $plum
+		statusline $brightplum
+		separator $skink
+		focused_workspace $dkgray $brightzartan $dkgray
+		active_workspace $dkgray $skink $dkgray
+		inactive_workspace $dkgray $dkgray $brightzartan
+		urgent_workspace $skink $skink $dkgray
+		binding_mode #2F343A #900000 #FFFFFF
+	}
+	}
 
-#                           border bg       text
-        focused_workspace  #000000 #23a077 #222222
-        active_workspace   #333333 #920c3e #222222
-        inactive_workspace #333333 #1d0c2d #888888
-        urgent_workspace   #2f343a #900000 #ffffff
-        binding_mode       #2f343a #900000 #ffffff
-    }
-}
+set $plum #4C3554 
+set $mustard #9CAD2A 
+set $skink #6E2046 
+set $dkgray #2E3439 
+set $brightplum #6B4E75 
+set $brightzartan #24A07A 
+set $zartan #0F6249 
